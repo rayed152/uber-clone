@@ -1,10 +1,22 @@
+import { SignedIn, SignedOut, useUser } from "@clerk/clerk-expo";
+import { Link } from "expo-router";
 import { View, Text } from "react-native";
-import React from "react";
 
 export default function Home() {
+  const { user } = useUser();
   return (
     <View>
-      <Text>home</Text>
+      <SignedIn>
+        <Text>Hello {user?.emailAddresses[0].emailAddress}</Text>
+      </SignedIn>
+      <SignedOut>
+        <Link href="/sign-in">
+          <Text>Sign In</Text>
+        </Link>
+        <Link href="/sign-up">
+          <Text>Sign Up</Text>
+        </Link>
+      </SignedOut>
     </View>
   );
 }
